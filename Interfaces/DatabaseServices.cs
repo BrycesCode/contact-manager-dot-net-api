@@ -31,7 +31,7 @@ namespace contact_manager_dot_net.Interfaces
 
         public async Task<IEnumerable<DatabaseResponseModel>> GetContact(string firstName)
         {
-
+            return null;
         }
 
 
