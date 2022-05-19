@@ -15,9 +15,65 @@ namespace contact_manager_dot_net.Controllers
         [HttpGet("/getContacts")]
         public async Task<IEnumerable<DatabaseResponseModel>> GetContacts()
         {
+            
             try
             {
                 return await _databaseServices.GetContacts();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        
+        [HttpGet("/getContactFirstName")]
+        public async Task<IEnumerable<DatabaseResponseModel>> GetContactFirstName(string firstName)
+        {
+            try
+            {
+                return await _databaseServices.GetContactFirstName(firstName);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        [HttpPost("/addcontact")]
+        public ActionResult AddContact(DatabaseResponseModel databaseModel)
+        {
+            try
+            {
+                _databaseServices.InsertContact(databaseModel);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        [HttpPost("/deleteContact/{contactId}")]
+        public async Task<ActionResult<string>> DeleteContact(int contactId)
+        {
+            try
+            {
+                var response = await _databaseServices.DeleteContact(contactId.ToString());
+                return Ok(response);   
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("/editUser/{Id}")]
+
+        public async Task<ActionResult> EditContact(DatabaseResponseModel DatabaseUpdateModel, int Id)
+        {
+            try
+            {
+                await _databaseServices.UpdateField(DatabaseUpdateModel);
+                return Ok();
             }
             catch (Exception ex)
             {

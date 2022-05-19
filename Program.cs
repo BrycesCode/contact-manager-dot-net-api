@@ -1,11 +1,11 @@
+
 using contact_manager_dot_net.Interfaces;
 using contact_manager_dot_net.Models;
-
+using contact_manager_dot_net.Data;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-
 builder.Services.AddControllers();
 builder.Services.AddScoped<IDatabaseServices, DatabaseServices>();
 builder.Services.AddOptions<DatabaseOptions>().Bind(builder.Configuration.GetSection("ConnectionStrings"));

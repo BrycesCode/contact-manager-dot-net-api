@@ -6,12 +6,12 @@ namespace contact_manager_dot_net.Interfaces
     {
         public Task<IEnumerable<DatabaseResponseModel>> GetContacts();
 
-        public Task<IEnumerable<DatabaseResponseModel>> GetContact(string firstName);
+        public Task<IEnumerable<DatabaseResponseModel>> GetContactFirstName(string firstName);
 
-    //    public Task<string> InsertContact(DatabaseResponseModel dbModel);
+        public Task<string> InsertContact(DatabaseResponseModel dbModel);
 
-     //   public Task<string> DeleteContact(string contactID);
+        public Task<string> DeleteContact(string contactID);
 
-      //  public Task<string> UpdateField(DatabaseResponseModel updateModel);
+        public Task<string> UpdateField(DatabaseResponseModel updateModel);
     }
 }
