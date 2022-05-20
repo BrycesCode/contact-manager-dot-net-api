@@ -1,4 +1,5 @@
 ﻿using contact_manager_dot_net.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace contact_manager_dot_net.Interfaces
 {
@@ -8,7 +9,7 @@ namespace contact_manager_dot_net.Interfaces
 
         public Task<IEnumerable<DatabaseResponseModel>> GetContactFirstName(string firstName);
 
-        public Task<string> InsertContact(DatabaseResponseModel dbModel);
+        public Task<ActionResult<string>> InsertContact(DatabaseResponseModel dbModel);
 
         public Task<string> DeleteContact(string contactID);
 

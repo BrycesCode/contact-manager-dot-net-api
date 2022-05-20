@@ -13,7 +13,7 @@ namespace contact_manager_dot_net.Controllers
             _databaseServices = databaseServices;
         }
         [HttpGet("/getContacts")]
-        public async Task<IEnumerable<DatabaseResponseModel>> GetContacts()
+        public async Task<IEnumerable<DatabaseResponseModel>> ContactList()
         {
             
             try
@@ -66,9 +66,9 @@ namespace contact_manager_dot_net.Controllers
             }
         }
 
-        [HttpPost("/editUser/{Id}")]
+        [HttpPost("/editUser")]
 
-        public async Task<ActionResult> EditContact(DatabaseResponseModel DatabaseUpdateModel, int Id)
+        public async Task<ActionResult> EditContact(DatabaseResponseModel DatabaseUpdateModel)
         {
             try
             {

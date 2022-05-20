@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Microsoft.Data.SqlClient;
 using Dapper;
-
+using Microsoft.AspNetCore.Mvc;
 
 namespace contact_manager_dot_net.Interfaces
 {
@@ -45,14 +45,14 @@ namespace contact_manager_dot_net.Interfaces
             }
 
         }
-        public async Task<string> InsertContact(DatabaseResponseModel dbModel)
+        public async Task<ActionResult<string>> InsertContact(DatabaseResponseModel dbModel)
         {
             var queryString = $"INSERT INTO ContactsAPI (firstName, lastName, Address, Number, Email) VALUES ('{dbModel.firstName}', '{dbModel.lastName}', '{dbModel.Address}', '{dbModel.Number}', '{dbModel.Email}')";
             try
             {
                 using var connection = new SqlConnection(_dbOptions.Value.Database);
-                IEnumerable<DatabaseResponseModel> response = await connection.QueryAsync<DatabaseResponseModel>(queryString);
-                return $"Contact Added";
+                var response = await connection.QueryAsync<DatabaseResponseModel>(queryString);
+                return "ok";
 
             }
             catch (Exception ex)
@@ -78,13 +78,13 @@ namespace contact_manager_dot_net.Interfaces
         }
         public async Task<string> UpdateField(DatabaseResponseModel updateModel)
         {
-            var getUserString = $"UPDATE FROM ContactsAPI WHERE contactId = {updateModel.Id} SET firstName = '{updateModel.firstName}', lastName = '{updateModel.lastName}', Address = '{updateModel.Address}', Number = '{updateModel.Number}', Email = '{updateModel.Email}' ";
-            //var queryString = $"UPDATE ContactsAPI SET firstName = '{updateModel.firstName}', lastName = '{updateModel.lastName}', Address = '{updateModel.Address}', Number = '{updateModel.Number}', Email = '{updateModel.Email}' ";
+            var getUserString = $"SELECT * FROM ContactsAPI WHERE ID = {updateModel.Id}";
+            var queryString = $"UPDATE ContactsAPI SET firstName = '{updateModel.firstName}', lastName = '{updateModel.lastName}', Address = '{updateModel.Address}', Number = '{updateModel.Number}', Email = '{updateModel.Email}' WHERE Id = '{updateModel.Id}'";
             try
             {
                 using var connection = new SqlConnection(_dbOptions.Value.Database);
                 IEnumerable<DatabaseResponseModel> userDataRepsponse = await connection.QueryAsync<DatabaseResponseModel>(getUserString);
-               // IEnumerable<DatabaseResponseModel> reponse = await connection.QueryAsync<DatabaseResponseModel>(queryString);
+                IEnumerable<DatabaseResponseModel> reponse = await connection.QueryAsync<DatabaseResponseModel>(queryString);
                 return $"updated";
             }
             catch (Exception ex)
