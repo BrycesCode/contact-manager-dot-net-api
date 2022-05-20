@@ -19,5 +19,5 @@ Creates a contact and stores it in database
 ## /deleteContact/{contactId} (Post)
 This deletes a contact based on coresponding Id of that contact
 
-## /EditContact
+## /EditContact (Post)
 This allows you to edit any information about a certain contact
